@@ -85,7 +85,7 @@ public class ProductoController {
     	
     	String nombre = producto.get("NOMBRE");
     	String descripcion = producto.get("DESCRIPCION");
-    	Integer cantidad = Integer.valueOf(producto.get("NOMBRE"));
+    	Integer cantidad = Integer.valueOf(producto.get("CANTIDAD"));
     	Integer maximocantidad = 50;
     	
         ConnectionFactory factory = new ConnectionFactory();
@@ -101,21 +101,17 @@ public class ProductoController {
         	cantidad -= maximocantidad;
         	
 		} while (cantidad > 0);
-       
-        
-        
+        con.commit();
         con.close();
     }
 
 	private void ejecutaregistro(String nombre, String descripcion, Integer cantidad, PreparedStatement statement)
 			throws SQLException {
-		
 		statement.setString(1, nombre);
         statement.setString(2, descripcion);
         statement.setInt(3, cantidad);
         
         statement.execute();
-        
         
         ResultSet resultSet = statement.getGeneratedKeys();
         
