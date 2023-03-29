@@ -18,13 +18,18 @@ public class ProductoController {
         ConnectionFactory factory = new ConnectionFactory();
         Connection con = factory.recuperaConexion();
 
-        Statement statement = con.createStatement();
+        PreparedStatement statement = con.prepareStatement("UPDATE PRODUCTO SET "
+        		+ " NOMBRE = ?"
+                + ", DESCRIPCION = ?"
+                + ", CANTIDAD = ?"
+                + " WHERE ID = ?");
         
-        statement.execute("UPDATE PRODUCTO SET "
-                + " NOMBRE = '" + nombre + "'"
-                + ", DESCRIPCION = '" + descripcion + "'"
-                + ", CANTIDAD = " + cantidad
-                + " WHERE ID = " + id);
+        statement.setString(1, nombre);
+        statement.setString(2, descripcion);
+        statement.setInt(3, cantidad);
+        statement.setInt(4, id);
+        
+        statement.execute();
         
         int updateCount = statement.getUpdateCount();
         
@@ -37,9 +42,10 @@ public class ProductoController {
         ConnectionFactory factory = new ConnectionFactory();
         Connection con = factory.recuperaConexion();
 
-        Statement statement = con.createStatement();
+        PreparedStatement statement = con.prepareStatement("DELETE FROM PRODUCTO WHERE ID = ?");
+        statement.setInt(1, id);
         
-        statement.execute("DELETE FROM PRODUCTO WHERE ID = " + id);
+        statement.execute();
         
         int updateCount = statement.getUpdateCount();
         
@@ -52,8 +58,8 @@ public class ProductoController {
         ConnectionFactory factory = new ConnectionFactory();
         Connection con = factory.recuperaConexion();
 
-        Statement statement = con.createStatement();
-        statement.execute("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO");
+        PreparedStatement statement = con.prepareStatement("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO");
+        statement.execute();
 
         ResultSet resultSet = statement.getResultSet();
 
