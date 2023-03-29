@@ -109,9 +109,7 @@ public class ProductoController {
 
 	private void ejecutaregistro(String nombre, String descripcion, Integer cantidad, PreparedStatement statement)
 			throws SQLException {
-		if(cantidad < 50) {
-			throw new RuntimeException("ocurrio un error ");
-		}
+		
 		statement.setString(1, nombre);
         statement.setString(2, descripcion);
         statement.setInt(3, cantidad);
