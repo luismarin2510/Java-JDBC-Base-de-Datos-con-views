@@ -94,14 +94,19 @@ public class ProductoController {
 
         PreparedStatement statement = con.prepareStatement("INSERT INTO PRODUCTO (nombre, descripcion, cantidad)"
                 + "VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
-        do {
-        	int cantidadparaguardar = Math.min(cantidad, maximocantidad);
-        	ejecutaregistro(nombre, descripcion, cantidadparaguardar, statement);
-        	
-        	cantidad -= maximocantidad;
-        	
-		} while (cantidad > 0);
-        con.commit();
+        try {
+        	do {
+        		int cantidadparaguardar = Math.min(cantidad, maximocantidad);
+            	ejecutaregistro(nombre, descripcion, cantidadparaguardar, statement);
+            	cantidad -= maximocantidad;
+            	
+    		} while (cantidad > 0);
+            con.commit();
+			
+		} catch (Exception e) {
+			con.rollback();
+		}
+        statement.close();
         con.close();
     }
 
