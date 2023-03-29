@@ -81,15 +81,35 @@ public class ProductoController {
     }
 
     public void guardar(Map<String, String> producto) throws SQLException {
+    	
+    	String nombre = producto.get("NOMBRE");
+    	String descripcion = producto.get("DESCRIPCION");
+    	Integer cantidad = Integer.valueOf(producto.get("NOMBRE"));
+    	Integer maximocantidad = 50;
+    	
         ConnectionFactory factory = new ConnectionFactory();
         Connection con = factory.recuperaConexion();
 
         PreparedStatement statement = con.prepareStatement("INSERT INTO PRODUCTO (nombre, descripcion, cantidad)"
                 + "VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+        do {
+        	int cantidadparaguardar = Math.min(cantidad, maximocantidad);
+        	ejecutaregistro(nombre, descripcion, cantidadparaguardar, statement);
+        	
+        	cantidad -= maximocantidad;
+        	
+		} while (cantidad > 0);
        
-        statement.setString(1, producto.get("NOMBRE"));
-        statement.setString(2, producto.get("DESCRIPCION"));
-        statement.setInt(3, Integer.valueOf(producto.get("NOMBRE")));
+        
+        
+        con.close();
+    }
+
+	private void ejecutaregistro(String nombre, String descripcion, Integer cantidad, PreparedStatement statement)
+			throws SQLException {
+		statement.setString(1, nombre);
+        statement.setString(2, descripcion);
+        statement.setInt(3, cantidad);
         
         statement.execute();
         
@@ -101,6 +121,6 @@ public class ProductoController {
                     "Fue insertado el producto de ID: %d",
                     resultSet.getInt(1)));
         }
-    }
+	}
 
 }
