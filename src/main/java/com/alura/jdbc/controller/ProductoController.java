@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import com.alura.jdbc.factory.ConnectionFactory;
 
 public class ProductoController {
@@ -89,6 +90,7 @@ public class ProductoController {
     	
         ConnectionFactory factory = new ConnectionFactory();
         Connection con = factory.recuperaConexion();
+        con.setAutoCommit(false);
 
         PreparedStatement statement = con.prepareStatement("INSERT INTO PRODUCTO (nombre, descripcion, cantidad)"
                 + "VALUES (?,?,?)", Statement.RETURN_GENERATED_KEYS);
@@ -107,6 +109,9 @@ public class ProductoController {
 
 	private void ejecutaregistro(String nombre, String descripcion, Integer cantidad, PreparedStatement statement)
 			throws SQLException {
+		if(cantidad < 50) {
+			throw new RuntimeException("ocurrio un error ");
+		}
 		statement.setString(1, nombre);
         statement.setString(2, descripcion);
         statement.setInt(3, cantidad);
