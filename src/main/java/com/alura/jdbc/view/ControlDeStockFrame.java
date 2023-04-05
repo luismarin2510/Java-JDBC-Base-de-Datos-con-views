@@ -69,8 +69,8 @@ public class ControlDeStockFrame extends JFrame {
         botonModificar = new JButton("Modificar");
         botonReporte = new JButton("Ver Reporte");
         botonEliminar.setBounds(10, 500, 80, 20);
-        botonModificar.setBounds(100, 500, 100, 20);
-        botonReporte.setBounds(220, 500, 110, 20);
+        botonModificar.setBounds(100, 500, 80, 20);
+        botonReporte.setBounds(190, 500, 80, 20);
 
         container.add(tabla);
         container.add(botonEliminar);
@@ -110,7 +110,7 @@ public class ControlDeStockFrame extends JFrame {
         textoNombre.setBounds(10, 25, 265, 20);
         textoDescripcion.setBounds(10, 65, 265, 20);
         textoCantidad.setBounds(10, 105, 265, 20);
-        comboCategoria.setBounds(10, 145, 180, 20);
+        comboCategoria.setBounds(10, 145, 265, 20);
 
         botonGuardar = new JButton("Guardar");
         botonLimpiar = new JButton("Limpiar");
