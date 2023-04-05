@@ -12,7 +12,7 @@ public class PruebaPoolDeConexiones {
         for (int i = 0; i < 20; i++) {
             factory.recuperaConexion();
             
-            System.out.println("Abriendo conexión #" + i);
+            System.out.println("Abriendo conexion #" + (i+1));
         }
     }
     

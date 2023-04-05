@@ -69,8 +69,8 @@ public class ControlDeStockFrame extends JFrame {
         botonModificar = new JButton("Modificar");
         botonReporte = new JButton("Ver Reporte");
         botonEliminar.setBounds(10, 500, 80, 20);
-        botonModificar.setBounds(100, 500, 80, 20);
-        botonReporte.setBounds(190, 500, 80, 20);
+        botonModificar.setBounds(100, 500, 110, 20);
+        botonReporte.setBounds(230, 500, 120, 20);
 
         container.add(tabla);
         container.add(botonEliminar);
